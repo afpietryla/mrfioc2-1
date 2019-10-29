@@ -46,6 +46,14 @@
 
 class EVRMRM;
 
+enum EvtClkMode {
+    ECModeUpFallBackSame = 0,
+    ECModeFracSynt = 1,
+    ECModeUpFallBackFracSynt = 2,
+    ECModeUpFallBackStop = 3,
+    ECModeMax = ECModeUpFallBackStop
+};
+
 struct epicsShareClass eventCode {
     epicsUInt8 code; // constant
     EVRMRM* owner;
