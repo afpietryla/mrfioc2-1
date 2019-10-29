@@ -41,7 +41,7 @@
 #include <epicsExport.h>
 
 static
-EVRMRM::Config evm_evru_conf = {
+EVRMRM::Config mtca_evm_evru_conf = {
     "mTCA-EVM-300 (EVRU)",
     16, // pulse generators
     3,  // prescalers
@@ -56,7 +56,7 @@ EVRMRM::Config evm_evru_conf = {
 };
 
 static
-EVRMRM::Config evm_evrd_conf = {
+EVRMRM::Config mtca_evm_evrd_conf = {
     "mTCA-EVM-300 (EVRD)",
     16, // pulse generators
     3,  // prescalers
@@ -69,6 +69,37 @@ EVRMRM::Config evm_evrd_conf = {
     MRMCML::typeTG300,
     8,  // FP inputs
 };
+
+static
+EVRMRM::Config vme_evm_evru_conf = {
+    "VME-EVM-300 (EVRU)",
+    16, // pulse generators
+    3,  // prescalers
+    8,  // FP outputs
+    0,  // FPUV outputs
+    0,  // RB outputs
+    0,  // Backplane outputs
+    0,  // FP Delay outputs
+    0,  // CML/GTX outputs
+    MRMCML::typeTG300,
+    8,  // FP inputs
+};
+
+static
+EVRMRM::Config vme_evm_evrd_conf = {
+    "VME-EVM-300 (EVRD)",
+    16, // pulse generators
+    3,  // prescalers
+    8,  // FP outputs
+    0,  // FPUV outputs
+    0,  // RB outputs
+    0,  // Backplane outputs
+    0,  // FP Delay outputs
+    0,  // CML/GTX outputs
+    MRMCML::typeTG300,
+    8,  // FP inputs
+};
+
 
 evgMrm::evgMrm(const std::string& id,
                const Config *conf,
@@ -158,14 +189,21 @@ evgMrm::evgMrm(const std::string& id,
     
     scanIoInit(&ioScanTimestamp);
 
-    if(busConfig.busType==busType_pci)
+//    if(busConfig.busType==busType_pci)
         mrf::SPIDevice::registerDev(id+":FLASH", mrf::SPIDevice(this, 1));
 
     if(pciDevice->id.sub_device==PCI_DEVICE_ID_MRF_MTCA_EVM_300) {
         printf("EVM automatically creating '%s:FCT', '%s:EVRD', and '%s:EVRU'\n", id.c_str(), id.c_str(), id.c_str());
         fct.reset(new FCT(this, id+":FCT", pReg+0x10000));
-        evrd.reset(new EVRMRM(id+":EVRD", busConfig, &evm_evrd_conf, pReg+0x20000, 0x10000));
-        evru.reset(new EVRMRM(id+":EVRU", busConfig, &evm_evru_conf, pReg+0x30000, 0x10000));
+        evrd.reset(new EVRMRM(id+":EVRD", busConfig, &mtca_evm_evrd_conf, pReg+0x20000, 0x10000));
+        evru.reset(new EVRMRM(id+":EVRU", busConfig, &mtca_evm_evru_conf, pReg+0x30000, 0x10000));
+    }
+
+    if(!strcmp(conf->model, "VME-EVM-300")) {
+        printf("EVM automatically created '%s:FCT', '%s:EVRD', and '%s:EVRU'\n", id.c_str(), id.c_str(), id.c_str());
+        fct.reset(new FCT(this, id+":FCT", pReg+0x10000));
+        evrd.reset(new EVRMRM(id+":EVRD", busConfig, &vme_evm_evrd_conf, pReg+0x20000, 0x10000));
+        evru.reset(new EVRMRM(id+":EVRU", busConfig, &vme_evm_evru_conf, pReg+0x30000, 0x10000));
     }
 }
 
