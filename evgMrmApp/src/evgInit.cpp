@@ -58,7 +58,7 @@ struct VMECSRID vmeEvgIDs[] = {
     VMECSRANY},
 /* VME-EVM-300 */
 {MRF_VME_IEEE_OUI,
-    MRF_VME_EVM_BID,
+    MRF_VME_EVM_300_BID|MRF_SERIES_300,
     VMECSRANY},
 VMECSR_END
 };
@@ -69,6 +69,14 @@ static const evgMrm::Config conf_vme_evg_230 = {
     4,
     16,
 };
+
+static const evgMrm::Config conf_vme_evm_300 = {
+    "VME-EVM-300",
+    3,
+    0,
+    16,
+};
+
 
 static const evgMrm::Config conf_pci_misc = {
     "Unknown PCI",
@@ -196,6 +204,7 @@ mrmEvgSetupVME (
         epicsInt32  irqVector)  // Desired interrupt vector number
 {
     volatile epicsUInt8* regCpuAddr = 0;
+    volatile epicsUInt8* regCpuAddr2 = 0;
     struct VMECSRID info;
     bus_configuration bus;
 
@@ -271,7 +280,33 @@ mrmEvgSetupVME (
         printf("FPGA version: %08x\n", READ32(regCpuAddr, FPGAVersion));
         checkVersion(regCpuAddr, MRFVersion(0, 3, 0), MRFVersion(0, 3, 0));
 
-        const evgMrm::Config *conf = &conf_vme_evg_230;
+        /* Is this a 230 series or 300 series?? */
+        const evgMrm::Config *conf = ((info.board == (MRF_VME_EVM_300_BID|MRF_SERIES_300)) ? &conf_vme_evm_300 : &conf_vme_evg_230);
+
+        if(!strcmp(conf->model, "VME-EVM-300")) {
+            /* Set base address of register map for function 2 */
+            CSRSetBase(csrCpuAddr, 2, vmeAddress+EVG_REGMAP_SIZE, VME_AM_STD_SUP_DATA);
+            {
+                epicsUInt32 temp = CSRRead32((csrCpuAddr) + CSR_FN_ADER(2));
+                if(temp != CSRADER((epicsUInt32)vmeAddress+EVG_REGMAP_SIZE,VME_AM_STD_SUP_DATA)) {
+                    printf("Failed to set CSR Base address in ADER2 for FCT register mapping. Check VME bus and card firmware version.\n");
+                    return -1;
+                }
+            }
+
+            status = devRegisterAddress (
+                    Description,                           // Event Generator card description
+                    atVMEA24,                              // A24 Address space
+                    vmeAddress+EVG_REGMAP_SIZE,            // Physical address of register space
+                    EVG_REGMAP_SIZE*2,                     // Size of card's register space
+                    (volatile void **)(void *)&regCpuAddr2 // Local address of card's register map
+                    );
+
+            if(status) {
+                printf("Failed to map VME address %08x for FCT mapping.\n", vmeAddress);
+                return -1;
+            }
+        }
 
         printf("%s #Inputs FP:%u UV:%u RB:%u\n", conf->model, conf->numFrontInp,
                conf->numUnivInp, conf->numRearInp);
