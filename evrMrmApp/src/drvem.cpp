@@ -655,6 +655,28 @@ EVRMRM::pllLocked() const
     return (cur&mask)==mask;
 }
 
+void
+EVRMRM::setPLLBandwidth(PLLBandwidth pllBandwidth)
+{
+    if(pllBandwidth > PLLBandwidth_MAX) {
+        throw std::out_of_range("PLL bandwidth selected is not available.");
+    }
+
+    epicsUInt32 temp = READ32(base, ClkCtrl);
+    temp &= ~ClkCtrl_pll_bw;
+    temp |= (epicsUInt8)pllBandwidth << ClkCtrl_pll_bw_SHIFT;
+    WRITE32(base, ClkCtrl, temp);
+}
+
+PLLBandwidth
+EVRMRM::getPLLBandwidth() const
+{
+    epicsUInt32 temp = (READ32(base, ClkCtrl) & ClkCtrl_pll_bw);
+    temp = temp >> ClkCtrl_pll_bw_SHIFT;
+
+    return (PLLBandwidth) temp;
+}
+
 bool
 EVRMRM::linkStatus() const
 {
@@ -1078,6 +1100,7 @@ OBJECT_BEGIN2(EVRMRM, EVR)
       void (EVRMRM::*cmd)() = &EVRMRM::resyncSecond;
       OBJECT_PROP1("Sync TS", cmd);
     }
+  OBJECT_PROP2("PLL Bandwidth", &EVRMRM::getPLLBandwidthRaw, &EVRMRM::setPLLBandwidthRaw);
 OBJECT_END(EVRMRM)
 
 

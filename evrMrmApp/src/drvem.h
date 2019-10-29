@@ -143,6 +143,13 @@ public:
 
     virtual bool pllLocked() const OVERRIDE FINAL;
 
+    virtual void setPLLBandwidth(PLLBandwidth pllBandwidth);
+    PLLBandwidth getPLLBandwidth() const;
+
+    /* helper functions */
+    void setPLLBandwidthRaw(epicsUInt16 r){setPLLBandwidth((PLLBandwidth) r);}
+    epicsUInt16 getPLLBandwidthRaw() const{return (epicsUInt16)getPLLBandwidth();}
+
     virtual epicsUInt32 irqCount() const OVERRIDE FINAL {return count_hardware_irq;}
 
     virtual bool linkStatus() const OVERRIDE FINAL;
