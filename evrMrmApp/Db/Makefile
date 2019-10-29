@@ -6,10 +6,12 @@ include $(TOP)/configure/CONFIG
 USR_DBFLAGS += -I$(TOP)/mrmShared/Db
 
 DB += mrmevrout.db
+DB += mrmevroutint.db
 DB += mrmevrbase.template
 DB += mrmevrdc.template
 DB += mrmevrbufrx.db
 DB += sequencedemo.db
+DB += evrSoftEvt.template
 
 DB += evr-pmc-230.db
 DB += evr-cpci-230.db
@@ -18,6 +20,7 @@ DB += evr-vmerf-230.db
 DB += evr-tg-300.db
 DB += evr-mtca-300.db
 DB += evr-pcie-300dc.db
+DB += evr-vme-300.db
 
 ifneq ($(DEVIOCSTATS),)
 DB_INSTALLS += $(DEVIOCSTATS)/db/iocAdminRTEMS.db
