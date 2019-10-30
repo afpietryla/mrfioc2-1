@@ -1,0 +1,124 @@
+file evgAcTrig.db {
+pattern { P, OBJ }
+{ "$(SYS){$(D)-AcTrig}", "$(EVG):AcTrig" }
+}
+
+file evgDbus-evm300.db {
+pattern { P, OBJ, EVG, dbusBit }
+{ "$(SYS){$(D)-Dbus:0}", "$(EVG):Dbus0", $(EVG), 0 }
+{ "$(SYS){$(D)-Dbus:1}", "$(EVG):Dbus1", $(EVG), 1 }
+{ "$(SYS){$(D)-Dbus:2}", "$(EVG):Dbus2", $(EVG), 2 }
+{ "$(SYS){$(D)-Dbus:3}", "$(EVG):Dbus3", $(EVG), 3 }
+{ "$(SYS){$(D)-Dbus:4}", "$(EVG):Dbus4", $(EVG), 4 }
+{ "$(SYS){$(D)-Dbus:5}", "$(EVG):Dbus5", $(EVG), 5 }
+{ "$(SYS){$(D)-Dbus:6}", "$(EVG):Dbus6", $(EVG), 6 }
+{ "$(SYS){$(D)-Dbus:7}", "$(EVG):Dbus7", $(EVG), 7 }
+}
+
+file evgEvtClk.db {
+{P="$(SYS){$(D)-EvtClk}", OBJ="$(EVG)", FRF="\$(FRF=351.935)", FDIV="\$(FDIV=3)", FEVT="\$(FEVT=117.313)"}
+}
+
+file evgInput.db {
+pattern { P, OBJ, , SYS, D, Num }
+{ "$(SYS){$(D)-Inp:Front0}", "$(EVG):FrontInp0", $(SYS), $(D), 0 }
+{ "$(SYS){$(D)-Inp:Front1}", "$(EVG):FrontInp1", $(SYS), $(D), 1 }
+{ "$(SYS){$(D)-Inp:Front2}", "$(EVG):FrontInp2", $(SYS), $(D), 2 }
+{ "$(SYS){$(D)-Inp:Rear0}",  "$(EVG):RearInp0",  $(SYS), $(D), 0 }
+{ "$(SYS){$(D)-Inp:Rear1}",  "$(EVG):RearInp1",  $(SYS), $(D), 1 }
+{ "$(SYS){$(D)-Inp:Rear2}",  "$(EVG):RearInp2",  $(SYS), $(D), 2 }
+{ "$(SYS){$(D)-Inp:Rear3}",  "$(EVG):RearInp3",  $(SYS), $(D), 3 }
+{ "$(SYS){$(D)-Inp:Rear4}",  "$(EVG):RearInp4",  $(SYS), $(D), 4 }
+{ "$(SYS){$(D)-Inp:Rear5}",  "$(EVG):RearInp5",  $(SYS), $(D), 5 }
+{ "$(SYS){$(D)-Inp:Rear6}",  "$(EVG):RearInp6",  $(SYS), $(D), 6 }
+{ "$(SYS){$(D)-Inp:Rear7}",  "$(EVG):RearInp7",  $(SYS), $(D), 7 }
+{ "$(SYS){$(D)-Inp:Rear8}",  "$(EVG):RearInp8",  $(SYS), $(D), 8 }
+{ "$(SYS){$(D)-Inp:Rear9}",  "$(EVG):RearInp9",  $(SYS), $(D), 9 }
+{ "$(SYS){$(D)-Inp:Rear10}",  "$(EVG):RearInp10",  $(SYS), $(D), 10 }
+{ "$(SYS){$(D)-Inp:Rear11}",  "$(EVG):RearInp11",  $(SYS), $(D), 11 }
+{ "$(SYS){$(D)-Inp:Rear12}",  "$(EVG):RearInp12",  $(SYS), $(D), 12 }
+{ "$(SYS){$(D)-Inp:Rear13}",  "$(EVG):RearInp13",  $(SYS), $(D), 13 }
+{ "$(SYS){$(D)-Inp:Rear14}",  "$(EVG):RearInp14",  $(SYS), $(D), 14 }
+{ "$(SYS){$(D)-Inp:Rear15}",  "$(EVG):RearInp15",  $(SYS), $(D), 15 }
+}
+
+file evgMrm.db {
+{ P="$(SYS){$(D)}", SOFTEVT="$(SYS){$(D)-SoftEvt}", OBJ="$(EVG)", EVG="$(EVG)" }
+}
+
+file evgMxc.db {
+pattern { P, OBJ, SYS, D }
+{ "$(SYS){$(D)-Mxc:0}", "$(EVG):Mxc0", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:1}", "$(EVG):Mxc1", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:2}", "$(EVG):Mxc2", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:3}", "$(EVG):Mxc3", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:4}", "$(EVG):Mxc4", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:5}", "$(EVG):Mxc5", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:6}", "$(EVG):Mxc6", $(SYS), $(D) }
+{ "$(SYS){$(D)-Mxc:7}", "$(EVG):Mxc7", $(SYS), $(D) }
+}
+
+#file evgOutput.db {
+#pattern { P, OBJ }
+#{ "$(SYS){$(D)-Out:Front0}", "$(EVG):FrontOut0" }
+#{ "$(SYS){$(D)-Out:Front1}", "$(EVG):FrontOut1" }
+#{ "$(SYS){$(D)-Out:Front2}", "$(EVG):FrontOut2" }
+#{ "$(SYS){$(D)-Out:Front3}", "$(EVG):FrontOut3" }
+#}
+
+#file mrmSoftSeq.template {
+#pattern { P, EVG, seqNum, NELM }
+#{ "$(SYS){$(D)-Seq0}", $(EVG), 0, 2047 }
+#{ "$(SYS){$(D)-Seq1}", $(EVG), 1, 2047 }
+##{ "$(SYS){$(D)-2}", $(EVG), 2, 2047 }
+#}
+
+#file evgSoftSeq.template {
+#pattern { P, EVG, seqNum, NELM }
+#{ "$(SYS){$(D)-Seq0}", $(EVG), 0, 2047 }
+#{ "$(SYS){$(D)-Seq1}", $(EVG), 1, 2047 }
+##{ "$(SYS){$(D)-2}", $(EVG), 2, 2047 }
+#}
+
+file evgTrigEvt-evm300.db {
+pattern { P, OBJ, EVG, trigEvtNum }
+{ "$(SYS){$(D)-TrigEvt:0}", "$(EVG):TrigEvt0", $(EVG), 0 }
+{ "$(SYS){$(D)-TrigEvt:1}", "$(EVG):TrigEvt1", $(EVG), 1 }
+{ "$(SYS){$(D)-TrigEvt:2}", "$(EVG):TrigEvt2", $(EVG), 2 }
+{ "$(SYS){$(D)-TrigEvt:3}", "$(EVG):TrigEvt3", $(EVG), 3 }
+{ "$(SYS){$(D)-TrigEvt:4}", "$(EVG):TrigEvt4", $(EVG), 4 }
+{ "$(SYS){$(D)-TrigEvt:5}", "$(EVG):TrigEvt5", $(EVG), 5 }
+{ "$(SYS){$(D)-TrigEvt:6}", "$(EVG):TrigEvt6", $(EVG), 6 }
+{ "$(SYS){$(D)-TrigEvt:7}", "$(EVG):TrigEvt7", $(EVG), 7 }
+}
+
+#file databuftx.db
+#{pattern
+#{ P, OBJ, PROTO }
+#{ "$(SYS){$(D)}", "$(EVG):BUFTX", 1 }
+#}
+
+#file "databuftxCtrl.db"
+#{pattern
+#{ P, OBJ }
+#{ "$(SYS){$(D)}", "$(EVG):BUFTX" }
+#}
+
+file evm-fct.template {
+pattern { P, OBJ }
+{ "$(SYS){$(D)-FCT}", "$(EVG):FCT" }
+}
+
+# ID = 0 --> Main transciever (upstream)
+# ID = 1+ --> Fanouts
+file sfp.db {
+pattern { P, OBJ }
+{ "$(SYS){$(D)-SFP:1}", "$(EVG):FCT:SFP1" }
+{ "$(SYS){$(D)-SFP:2}", "$(EVG):FCT:SFP2" }
+{ "$(SYS){$(D)-SFP:3}", "$(EVG):FCT:SFP3" }
+{ "$(SYS){$(D)-SFP:4}", "$(EVG):FCT:SFP4" }
+{ "$(SYS){$(D)-SFP:5}", "$(EVG):FCT:SFP5" }
+{ "$(SYS){$(D)-SFP:6}", "$(EVG):FCT:SFP6" }
+{ "$(SYS){$(D)-SFP:7}", "$(EVG):FCT:SFP7" }
+{ "$(SYS){$(D)-SFP:8}", "$(EVG):FCT:SFP8" }
+}

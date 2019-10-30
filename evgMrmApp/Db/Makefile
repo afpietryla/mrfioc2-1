@@ -31,6 +31,7 @@ DB += evgSoftSeq.db
 DB += evm-fct.template
 DB += cpci-evg-300.db
 DB += vme-evg230.db
+DB += vme-evm-300.db
 DB += vme-evg230-nsls2.db
 DB += mtca-evm-300.db
 
