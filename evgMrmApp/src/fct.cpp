@@ -36,10 +36,9 @@ FCT::~FCT() {}
 epicsUInt16 FCT::statusRaw() const
 {
     epicsUInt32 cur = READ32(base, Status);
-    cur &= 0xff0000;
-//    WRITE32(base, Control, cur1); // clear VIO latches
-//    return ~cur; // invert to get 1==Ok
-    return (cur >> 16);
+    cur &= 0xff;
+    WRITE32(base, Control, cur1); // clear VIO latches
+    return ~cur; // invert to get 1==Ok
 }
 
 double FCT::dcUpstream() const
