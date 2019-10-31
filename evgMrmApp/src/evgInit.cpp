@@ -281,7 +281,7 @@ mrmEvgSetupVME (
         checkVersion(regCpuAddr, MRFVersion(0, 3, 0), MRFVersion(0, 3, 0));
 
         /* Is this a 230 series or 300 series?? */
-        const evgMrm::Config *conf = ((info.board == (MRF_VME_EVM_300_BID|MRF_SERIES_300)) ? &conf_vme_evm_300 : &conf_vme_evg_230);
+        const evgMrm::Config *conf = ((info.board == MRF_VME_EVM300_BID) ? &conf_vme_evm_300 : &conf_vme_evg_230);
 
         if(!strcmp(conf->model, "VME-EVM-300")) {
             /* Set base address of register map for function 2 */
@@ -298,7 +298,7 @@ mrmEvgSetupVME (
                     Description,                           // Event Generator card description
                     atVMEA24,                              // A24 Address space
                     vmeAddress+EVG_REGMAP_SIZE,            // Physical address of register space
-                    EVG_REGMAP_SIZE*2,                     // Size of card's register space
+                    EVG_REGMAP_SIZE,                       // Size of card's register space
                     (volatile void **)(void *)&regCpuAddr2 // Local address of card's register map
                     );
 
