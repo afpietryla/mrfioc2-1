@@ -189,7 +189,8 @@ evgMrm::evgMrm(const std::string& id,
     
     scanIoInit(&ioScanTimestamp);
 
-    mrf::SPIDevice::registerDev(id+":FLASH", mrf::SPIDevice(this, 1));
+    if((busConfig.busType==busType_pci) || !strcmp(conf->model, "VME-EVM-300"))
+        mrf::SPIDevice::registerDev(id+":FLASH", mrf::SPIDevice(this, 1));
 
     if(pciDevice->id.sub_device==PCI_DEVICE_ID_MRF_MTCA_EVM_300) {
         printf("EVM automatically creating '%s:FCT', '%s:EVRD', and '%s:EVRU'\n", id.c_str(), id.c_str(), id.c_str());
