@@ -206,12 +206,6 @@
 #  define PulserCtrl_enables 0x00ff0000
 #  define PulserCtrl_enables_shift 16
 
-/*
-#  define PulserCtrl_masks 0xff0000
-#  define PulserCtrl_masks_shift 16
-#  define PulserCtrl_enables 0xff0000
-#  define PulserCtrl_enables_shift 8
-*/
 #  define PulserCtrl_ena  0x01
 #  define PulserCtrl_mtrg 0x02
 #  define PulserCtrl_mset 0x04
