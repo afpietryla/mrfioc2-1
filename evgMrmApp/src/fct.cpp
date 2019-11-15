@@ -37,7 +37,9 @@ epicsUInt16 FCT::statusRaw() const
 {
     epicsUInt32 cur = READ32(base, Status);
     cur &= 0xff;
-    WRITE32(base, Control, cur); // clear VIO latches
+/*  This write causes a VME Bus error. Confirmed hardware bug by Micro Research Finland
+ *     WRITE32(base, Control, cur); // clear VIO latches
+ */
     return ~cur; // invert to get 1==Ok
 }
 
