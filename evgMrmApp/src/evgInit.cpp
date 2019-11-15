@@ -204,7 +204,6 @@ mrmEvgSetupVME (
         epicsInt32  irqVector)  // Desired interrupt vector number
 {
     volatile epicsUInt8* regCpuAddr = 0;
-    volatile epicsUInt8* regCpuAddr2 = 0;
     struct VMECSRID info;
     bus_configuration bus;
 
@@ -292,19 +291,6 @@ mrmEvgSetupVME (
                     printf("Failed to set CSR Base address in ADER2 for FCT register mapping. Check VME bus and card firmware version.\n");
                     return -1;
                 }
-            }
-
-            status = devRegisterAddress (
-                    Description,                           // Event Generator card description
-                    atVMEA24,                              // A24 Address space
-                    vmeAddress+EVG_REGMAP_SIZE,            // Physical address of register space
-                    EVG_REGMAP_SIZE,                       // Size of card's register space
-                    (volatile void **)(void *)&regCpuAddr2 // Local address of card's register map
-                    );
-
-            if(status) {
-                printf("Failed to map VME address %08x for FCT mapping.\n", vmeAddress);
-                return -1;
             }
         }
 
