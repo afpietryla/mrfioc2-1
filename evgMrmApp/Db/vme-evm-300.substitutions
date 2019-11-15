@@ -66,18 +66,22 @@ pattern { P, OBJ, SYS, D }
 #{ "$(SYS){$(D)-Out:Front3}", "$(EVG):FrontOut3" }
 #}
 
-#file mrmSoftSeq.template {
-#pattern { P, EVG, seqNum, NELM }
-#{ "$(SYS){$(D)-Seq0}", $(EVG), 0, 2047 }
-#{ "$(SYS){$(D)-Seq1}", $(EVG), 1, 2047 }
-##{ "$(SYS){$(D)-2}", $(EVG), 2, 2047 }
-#}
+file mrmSoftSeq.template {
+pattern { P, EVG, seqNum, NELM }
+{ "$(SYS){$(D)-Seq0}", $(EVG), 0, 2047 }
+{ "$(SYS){$(D)-Seq1}", $(EVG), 1, 2047 }
+}
 
-#file evgSoftSeq.template {
-#pattern { P, EVG, seqNum, NELM }
-#{ "$(SYS){$(D)-Seq0}", $(EVG), 0, 2047 }
-#{ "$(SYS){$(D)-Seq1}", $(EVG), 1, 2047 }
-##{ "$(SYS){$(D)-2}", $(EVG), 2, 2047 }
+file evgSoftSeq.template {
+pattern { P, EVG, seqNum, NELM }
+{ "$(SYS){$(D)-Seq0}", $(EVG), 0, 2047 }
+{ "$(SYS){$(D)-Seq1}", $(EVG), 1, 2047 }
+}
+
+#file seq-plain.db {
+#pattern { P, NELM, FLNK }
+#{ "$(SYS){$(D)-Seq0}", 2047, "" }
+#{ "$(SYS){$(D)-Seq1}", 2047, "" }
 #}
 
 file evgTrigEvt-evm300.db {
