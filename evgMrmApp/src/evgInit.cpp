@@ -294,6 +294,7 @@ mrmEvgSetupVME (
                 }
             }
 
+            /*Register VME address for function 2 and get corresponding CPU address */
             status = devRegisterAddress (
                     Description,                           // Event Generator card description
                     atVMEA24,                              // A24 Address space
@@ -303,7 +304,7 @@ mrmEvgSetupVME (
                     );
 
             if(status) {
-                printf("Failed to map VME address %08x for FCT mapping.\n", vmeAddress);
+                printf("Failed to map VME address %08x for FCT mapping.\n", vmeAddress+EVG_REGMAP_SIZE);
                 return -1;
             }
         }
